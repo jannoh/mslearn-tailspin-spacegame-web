@@ -1,143 +1,143 @@
 trigger:
-- '*'
+  - "*"
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
-  buildConfiguration: 'Release'
-  wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
-  dotnetSdkVersion: '6.x'
+  buildConfiguration: "Release"
+  wwwrootDir: "Tailspin.SpaceGame.Web/wwwroot"
+  dotnetSdkVersion: "6.x"
   System.Debug: true
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Use .NET SDK $(dotnetSdkVersion)'
-  inputs:
-    version: '$(dotnetSdkVersion)'
+  - task: UseDotNet@2
+    displayName: "Use .NET SDK $(dotnetSdkVersion)"
+    inputs:
+      version: "$(dotnetSdkVersion)"
 
-- task: Npm@1
-  displayName: 'Run npm install'
-  inputs:
-    verbose: false
+  - task: Npm@1
+    displayName: "Run npm install"
+    inputs:
+      verbose: false
 
-- script: './node_modules/.bin/node-sass $(wwwrootDir) --output $(wwwrootDir)'
-  displayName: 'Compile Sass assets'
+  - script: "./node_modules/.bin/node-sass $(wwwrootDir) --output $(wwwrootDir)"
+    displayName: "Compile Sass assets"
 
-- task: gulp@1
-  displayName: 'Run gulp tasks'
+  - task: gulp@1
+    displayName: "Run gulp tasks"
 
-- script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
-  displayName: 'Write build info'
-  workingDirectory: $(wwwrootDir)
+  - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
+    displayName: "Write build info"
+    workingDirectory: $(wwwrootDir)
 
-- bash: |
-    echo "
-    Build variables (DevOps Services)
+  - bash: |
+      echo "
+      Build variables (DevOps Services)
 
-    $(Build.ArtifactStagingDirectory)\n
-    $(Build.BuildId)\n
-    $(Build.BuildNumber)\n
-    $(Build.BuildUri)\n
-    $(Build.BinariesDirectory)\n
-    $(Build.ContainerId)\n
-    $(Build.CronSchedule.DisplayName)\n
-    $(Build.DefinitionName)\n
-    $(Build.DefinitionVersion)\n
-    $(Build.QueuedBy)\n
-    $(Build.QueuedById)\n
-    $(Build.Reason)\n
-    $(Build.Repository.Clean)\n
-    $(Build.Repository.LocalPath)\n
-    $(Build.Repository.ID)\n
-    $(Build.Repository.Name)\n
-    $(Build.Repository.Provider)\n
-    $(Build.Repository.Tfvc.Workspace)\n
-    $(Build.Repository.Uri)\n
-    $(Build.RequestedFor)\n
-    $(Build.RequestedForEmail)\n
-    $(Build.RequestedForId)\n
-    $(Build.SourceBranch)\n
-    $(Build.SourceBranchName)\n
-    $(Build.SourcesDirectory)\n
-    $(Build.SourceVersion)\n
-    $(Build.SourceVersionMessage)\n
-    $(Build.StagingDirectory)\n
-    $(Build.Repository.Git.SubmoduleCheckout)\n
-    $(Build.SourceTfvcShelveset)\n
-    $(Build.TriggeredBy.BuildId)\n
-    $(Build.TriggeredBy.DefinitionId)\n
-    $(Build.TriggeredBy.DefinitionName)\n
-    $(Build.TriggeredBy.BuildNumber)\n
-    $(Build.TriggeredBy.ProjectID)\n
-    $(Common.TestResultsDirectory)\n
+      Build.ArtifactStagingDirectory = $(Build.ArtifactStagingDirectory)
+      Build.BuildId = $(Build.BuildId)
+      Build.BuildNumber = $(Build.BuildNumber)
+      Build.BuildUri = $(Build.BuildUri)
+      Build.BinariesDirectory = $(Build.BinariesDirectory)
+      Build.ContainerId = $(Build.ContainerId)
+      Build.CronSchedule.DisplayName = $(Build.CronSchedule.DisplayName)
+      Build.DefinitionName =   $(Build.DefinitionName)
+      Build.DefinitionVersion =  $(Build.DefinitionVersion)
+      Build.QueuedBy =  $(Build.QueuedBy)
+      Build.QueuedById = $(Build.QueuedById)
+      Build.Reason = $(Build.Reason)
+      Build.Repository.Clean = $(Build.Repository.Clean)
+      Build.Repository.LocalPath  = $(Build.Repository.LocalPath)
+      Build.Repository.ID =  $(Build.Repository.ID)
+      Build.Repository.Name= $(Build.Repository.Name)
+      Build.Repository.Provider=  $(Build.Repository.Provider)
+      Build.Repository.Tfvc.Workspace=  $(Build.Repository.Tfvc.Workspace)
+      Build.Repository.Uri =  $(Build.Repository.Uri)
+      Build.RequestedFor =  $(Build.RequestedFor)
+      Build.RequestedForEmail =$(Build.RequestedForEmail)
+      Build.RequestedForId =    $(Build.RequestedForId)
+      Build.SourceBranch =   $(Build.SourceBranch)
+      Build.SourceBranchName =  $(Build.SourceBranchName)
+      Build.SourcesDirectory =  $(Build.SourcesDirectory)
+      Build.SourceVersion =    $(Build.SourceVersion)
+      Build.SourceVersionMessage =   $(Build.SourceVersionMessage)
+      Build.StagingDirectory =     $(Build.StagingDirectory)
+      Build.Repository.Git.SubmoduleCheckout = $(Build.Repository.Git.SubmoduleCheckout)
+      Build.SourceTfvcShelveset =     $(Build.SourceTfvcShelveset)
+      Build.TriggeredBy.BuildId =   $(Build.TriggeredBy.BuildId)
+      Build.TriggeredBy.DefinitionId =   $(Build.TriggeredBy.DefinitionId)
+      Build.TriggeredBy.DefinitionName =   $(Build.TriggeredBy.DefinitionName)
+      Build.TriggeredBy.BuildNumber = $(Build.TriggeredBy.BuildNumber)
+      Build.TriggeredBy.ProjectID =  $(Build.TriggeredBy.ProjectID)
+      Common.TestResultsDirectory =   $(Common.TestResultsDirectory)
 
-    Pipeline variables (DevOps Services)
-    $(Pipeline.Workspace)\n
+      Pipeline variables (DevOps Services)
+      Pipeline.Workspace =    $(Pipeline.Workspace)
 
-    Deployment job variables (DevOps Services)
+      Deployment job variables (DevOps Services)
 
-    $(Environment.Name)\n
-    $(Environment.Id)\n
-    $(Environment.ResourceName)\n
-    $(Environment.ResourceId)\n
-    $(Strategy.Name)\n
-    $(Strategy.CycleName)\n
+      Environment.Name =   $(Environment.Name)
+      Environment.Id =   $(Environment.Id)
+      Environment.ResourceName =  $(Environment.ResourceName)
+      Environment.ResourceId =  $(Environment.ResourceId)
+      Strategy.Name = $(Strategy.Name)
+      Strategy.CycleName =  $(Strategy.CycleName)
 
-    System variables (DevOps Services)
+      System variables (DevOps Services)
 
-    $(System.AccessToken)\n
-    $(System.CollectionId)\n
-    $(System.CollectionUri)\n
-    $(System.DefaultWorkingDirectory)\n
-    $(System.DefinitionId)\n
-    $(System.HostType)\n
-    $(System.JobAttempt)\n
-    $(System.JobDisplayName)\n
-    $(System.JobId)\n
-    $(System.JobName)\n
-    $(System.PhaseAttempt)\n
-    $(System.PhaseDisplayName)\n
-    $(System.PhaseName)\n
-    $(System.PlanId)\n
-    $(System.PullRequest.IsFork)\n
-    $(System.PullRequest.PullRequestId)\n
-    $(System.PullRequest.PullRequestNumber)\n
-    $(System.PullRequest.targetBranchName)\n
-    $(System.PullRequest.SourceBranch)\n
-    $(System.PullRequest.SourceRepositoryURI)\n
-    $(System.PullRequest.TargetBranch)\n
-    $(System.StageAttempt)\n
-    $(System.StageDisplayName)\n
-    $(System.StageName)\n
-    $(System.TeamFoundationCollectionUri)\n
-    $(System.TeamProject)\n
-    $(System.TeamProjectId)\n
-    $(System.TimelineId)\n
-    $(TF_BUILD)\n
+      System.AccessToken =  $(System.AccessToken)
+      System.CollectionId =  $(System.CollectionId)
+      System.CollectionUri =  $(System.CollectionUri)
+      System.DefaultWorkingDirectory =   $(System.DefaultWorkingDirectory)
+      System.DefinitionId =   $(System.DefinitionId)
+      System.HostType =   $(System.HostType)
+      System.JobAttempt =  $(System.JobAttempt)
+      System.JobDisplayName =  $(System.JobDisplayName)
+      System.JobId =  $(System.JobId)
+      System.JobName =    $(System.JobName)
+      System.PhaseAttempt =  $(System.PhaseAttempt)
+      System.PhaseDisplayName =  $(System.PhaseDisplayName)
+      System.PhaseName = $(System.PhaseName)
+      System.PlanId =   $(System.PlanId)
+      System.PullRequest.IsFork =   $(System.PullRequest.IsFork)
+      System.PullRequest.PullRequestId =  $(System.PullRequest.PullRequestId)
+      System.PullRequest.PullRequestNumber =  $(System.PullRequest.PullRequestNumber)
+      System.PullRequest.targetBranchName =   $(System.PullRequest.targetBranchName)
+      System.PullRequest.SourceBranch =   $(System.PullRequest.SourceBranch)
+      System.PullRequest.SourceRepositoryURI =  $(System.PullRequest.SourceRepositoryURI)
+      System.PullRequest.TargetBranch =     $(System.PullRequest.TargetBranch)
+      System.StageAttempt =    $(System.StageAttempt)
+      System.StageDisplayName =   $(System.StageDisplayName)
+      System.StageName =  $(System.StageName)
+      System.TeamFoundationCollectionUri =  $(System.TeamFoundationCollectionUri)
+      System.TeamProject = $(System.TeamProject)
+      System.TeamProjectId =  $(System.TeamProjectId)
+      System.TimelineId = $(System.TimelineId)
+      TF_BUILD  =  $(TF_BUILD)
 
 
-    Checks variables (DevOps Services)
+      Checks variables (DevOps Services)
 
-    $(Checks.StageAttempt)\n
+      Checks.StageAttempt =   $(Checks.StageAttempt)
 
-    "
-  displayName: "Check Predefined Variable Values"
+      "
+    displayName: "Check Predefined Variable Values"
 
-- task: DotNetCoreCLI@2
-  displayName: 'Restore project dependencies'
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+  - task: DotNetCoreCLI@2
+    displayName: "Restore project dependencies"
+    inputs:
+      command: "restore"
+      projects: "**/*.csproj"
 
-- template: templates/build.yml
-  parameters:
-    buildConfiguration: 'Debug'
+  - template: templates/build.yml
+    parameters:
+      buildConfiguration: "Debug"
 
-- template: templates/build.yml
-  parameters:
-    buildConfiguration: 'Release'
+  - template: templates/build.yml
+    parameters:
+      buildConfiguration: "Release"
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  condition: succeeded()
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact: drop"
+    condition: succeeded()
