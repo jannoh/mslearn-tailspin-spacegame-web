@@ -31,6 +31,99 @@ steps:
   displayName: 'Write build info'
   workingDirectory: $(wwwrootDir)
 
+- bash: |
+    echo "
+    Build variables (DevOps Services)
+
+    $(Build.ArtifactStagingDirectory)\n
+    $(Build.BuildId)\n
+    $(Build.BuildNumber)\n
+    $(Build.BuildUri)\n
+    $(Build.BinariesDirectory)\n
+    $(Build.ContainerId)\n
+    $(Build.CronSchedule.DisplayName)\n
+    $(Build.DefinitionName)\n
+    $(Build.DefinitionVersion)\n
+    $(Build.QueuedBy)\n
+    $(Build.QueuedById)\n
+    $(Build.Reason)\n
+    $(Build.Repository.Clean)\n
+    $(Build.Repository.LocalPath)\n
+    $(Build.Repository.ID)\n
+    $(Build.Repository.Name)\n
+    $(Build.Repository.Provider)\n
+    $(Build.Repository.Tfvc.Workspace)\n
+    $(Build.Repository.Uri)\n
+    $(Build.RequestedFor)\n
+    $(Build.RequestedForEmail)\n
+    $(Build.RequestedForId)\n
+    $(Build.SourceBranch)\n
+    $(Build.SourceBranchName)\n
+    $(Build.SourcesDirectory)\n
+    $(Build.SourceVersion)\n
+    $(Build.SourceVersionMessage)\n
+    $(Build.StagingDirectory)\n
+    $(Build.Repository.Git.SubmoduleCheckout)\n
+    $(Build.SourceTfvcShelveset)\n
+    $(Build.TriggeredBy.BuildId)\n
+    $(Build.TriggeredBy.DefinitionId)\n
+    $(Build.TriggeredBy.DefinitionName)\n
+    $(Build.TriggeredBy.BuildNumber)\n
+    $(Build.TriggeredBy.ProjectID)\n
+    $(Common.TestResultsDirectory)\n
+
+    Pipeline variables (DevOps Services)
+    $(Pipeline.Workspace)\n
+
+    Deployment job variables (DevOps Services)
+
+    $(Environment.Name)\n
+    $(Environment.Id)\n
+    $(Environment.ResourceName)\n
+    $(Environment.ResourceId)\n
+    $(Strategy.Name)\n
+    $(Strategy.CycleName)\n
+
+    System variables (DevOps Services)
+
+    $(System.AccessToken)\n
+    $(System.CollectionId)\n
+    $(System.CollectionUri)\n
+    $(System.DefaultWorkingDirectory)\n
+    $(System.DefinitionId)\n
+    $(System.HostType)\n
+    $(System.JobAttempt)\n
+    $(System.JobDisplayName)\n
+    $(System.JobId)\n
+    $(System.JobName)\n
+    $(System.PhaseAttempt)\n
+    $(System.PhaseDisplayName)\n
+    $(System.PhaseName)\n
+    $(System.PlanId)\n
+    $(System.PullRequest.IsFork)\n
+    $(System.PullRequest.PullRequestId)\n
+    $(System.PullRequest.PullRequestNumber)\n
+    $(System.PullRequest.targetBranchName)\n
+    $(System.PullRequest.SourceBranch)\n
+    $(System.PullRequest.SourceRepositoryURI)\n
+    $(System.PullRequest.TargetBranch)\n
+    $(System.StageAttempt)\n
+    $(System.StageDisplayName)\n
+    $(System.StageName)\n
+    $(System.TeamFoundationCollectionUri)\n
+    $(System.TeamProject)\n
+    $(System.TeamProjectId)\n
+    $(System.TimelineId)\n
+    $(TF_BUILD)\n
+
+
+    Checks variables (DevOps Services)
+
+    $(Checks.StageAttempt)\n
+
+    "
+  displayName: "Check Predefined Variable Values"
+
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
